@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Café da Milla</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="topo">
+    <div class="logo-area">
+        <img src="WhatsApp Image 2026-11-17 at 16.13.50.jpeg" alt="Logo Café da Milla" class="logo">
+
+        <div>
+            <h1>Café da Milla</h1>
+            <span>Sabor, carinho e qualidade!</span>
+        </div>
+    </div>
+
+    <button class="admin-btn" onclick="abrirLogin()">
+        ⚙ Proprietária
+    </button>
+</header>
+
+<section class="apresentacao">
+    <span class="decoracao">✿ ✿ ✿</span>
+
+    <p class="subtitulo">UM CANTINHO ESPECIAL PARA VOCÊ</p>
+
+    <h2>Um sabor que abraça!</h2>
+
+    <p>
+        No Café da Milla, cada detalhe é preparado com carinho.
+        Trabalhamos com sabores especiais, ingredientes selecionados
+        e aquele toque caseiro que transforma qualquer momento.
+    </p>
+
+    <span class="frase">Seu dia merece um sabor especial. ♡</span>
+</section>
+
+<main class="container">
+
+    <div class="titulo-cardapio">
+        <span>✦ NOSSO CARDÁPIO ✦</span>
+
+        <h2>Escolha suas delícias</h2>
+
+        <p>Confira nossas opções e encontre seu próximo sabor favorito.</p>
+    </div>
+
+    <div id="cardapio"></div>
+
+    <section class="entrega">
+        <span>♡</span>
+
+        <h2>Receba nossas delícias!</h2>
+
+        <p>Escolha seu horário e solicite sua entrega.</p>
+
+        <button onclick="abrirEntrega()" class="botao-entrega">
+            🛵 SOLICITAR ENTREGA
+        </button>
+    </section>
+
+</main>
+
+<section class="sobre">
+    <h2>Um café feito com carinho!</h2>
+
+    <p>
+        Mais do que preparar alimentos, queremos proporcionar
+        momentos gostosos, com qualidade, dedicação e muito amor.
+        Será um prazer fazer parte do seu dia!
+    </p>
+
+    <span>Com carinho, Café da Milla ♡</span>
+</section>
+
+<footer>
+    <p>© 2026 Café da Milla</p>
+    <p>Feito com carinho para você! ♡</p>
+</footer>
+
+
+<!-- LOGIN -->
+
+<div class="modal" id="modalLogin">
+
+    <div class="modal-conteudo">
+
+        <button class="fechar" onclick="fecharModais()">×</button>
+
+        <h2>Cabine de Comandos</h2>
+
+        <p>Acesso exclusivo da proprietária.</p>
+
+        <input
+            type="password"
+            id="senha"
+            placeholder="Digite sua senha"
+        >
+
+        <button onclick="entrarAdmin()" class="botao-principal">
+            ENTRAR
+        </button>
+
+        <p id="erroSenha" class="erro"></p>
+
+    </div>
+</div>
+
+
+<!-- PAINEL ADMINISTRATIVO -->
+
+<div class="modal" id="modalAdmin">
+
+    <div class="painel">
+
+        <button class="fechar" onclick="fecharModais()">×</button>
+
+        <h2>⚙ Cabine de Comandos</h2>
+
+        <p>Gerencie os produtos do Café da Milla.</p>
+
+        <div class="form-admin">
+
+            <h3>Adicionar ou editar produto</h3>
+
+            <input type="hidden" id="produtoId">
+
+            <label>Nome do produto</label>
+
+            <input
+                id="nomeProduto"
+                placeholder="Digite o nome do produto"
+            >
+
+            <label>Categoria</label>
+
+            <select id="categoriaProduto">
+                <option value="Salgados fitness">Salgados fitness</option>
+                <option value="Bolos funcionais">Bolos funcionais</option>
+                <option value="Sobremesas saudáveis">Sobremesas saudáveis</option>
+                <option value="Bebidas">Bebidas</option>
+            </select>
+
+            <label>Preço (R$)</label>
+
+            <input
+                id="precoProduto"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="Ex: 15"
+            >
+
+            <label>Foto do produto (opcional)</label>
+
+            <input
+                id="fotoProduto"
+                type="file"
+                accept="image/*"
+            >
+
+            <img
+                id="previewFoto"
+                class="preview-foto"
+                alt="Prévia da foto"
+            >
+
+            <div class="acoes-admin">
+
+                <button onclick="salvarProduto()" class="botao-principal">
+                    SALVAR PRODUTO
+                </button>
+
+                <button onclick="limparFormulario()" class="botao-secundario">
+                    LIMPAR
+                </button>
+
+            </div>
+
+        </div>
+
+        <h3 class="titulo-lista">Gerenciar disponibilidade dos produtos</h3>
+
+        <p class="explicacao-admin">
+            Cada produto possui seu próprio controle de disponibilidade.
+            Você pode bloquear por até 7 dias.
+        </p>
+
+        <div id="listaAdmin"></div>
+
+        <button onclick="sairAdmin()" class="botao-sair">
+            SAIR DA CABINE
+        </button>
+
+    </div>
+</div>
+
+
+<!-- ENTREGA -->
+
+<div class="modal" id="modalEntrega">
+
+    <div class="modal-conteudo entrega-modal">
+
+        <button class="fechar" onclick="fecharModais()">×</button>
+
+        <h2>🛵 Solicitar entrega</h2>
+
+        <p>Preencha os dados para solicitar seu pedido.</p>
+
+        <label>Seu nome</label>
+
+        <input id="clienteNome" placeholder="Digite seu nome">
+
+        <label>Telefone para contato</label>
+
+        <input
+            id="clienteTelefone"
+            type="tel"
+            placeholder="(00) 00000-0000"
+        >
+
+        <label>Endereço completo</label>
+
+        <textarea
+            id="clienteEndereco"
+            placeholder="Rua, número, bairro e referência"
+        ></textarea>
+
+        <label>Horário desejado</label>
+
+        <input id="horarioEntrega" type="time">
+
+        <p class="horarios">
+            <strong>Horários de entrega:</strong><br>
+            Manhã: 11:00 às 12:20<br>
+            Tarde: 14:00 às 17:00
+        </p>
+
+        <p id="erroEntrega" class="erro"></p>
+
+        <button onclick="enviarEntrega()" class="botao-principal">
+            CONFIRMAR SOLICITAÇÃO
+        </button>
+
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
